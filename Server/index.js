@@ -36,6 +36,7 @@ if (!process.env.VERCEL) {
 }
 
 // ===== Routes =====
+app.get("/", (req, res) => res.send("Welcome to JustBuy API"));
 app.use("/api/upload-image", upload.single('image'), uploadImage);
 app.use("/api", routes);
 
