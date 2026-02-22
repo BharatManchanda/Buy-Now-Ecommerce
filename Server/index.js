@@ -8,19 +8,21 @@ const multer = require("multer");
 const { uploadImage } = require('./controllers/upload/upload');
 
 // Database connection
-const connect = require('./DB/connect'); // updated connect.js
+const connect = require('./DB/connect');
 const routes = require('./routes/index');
 
 // Middlewares
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: process.env.CLIENT_URL, // frontend domain
   credentials: true
 }));
 app.use(express.json());
 
-// Multer setup
+// ===== Multer setup =====
+
+// Use disk storage locally, memory storage on Vercel
 const storage = process.env.VERCEL
-  ? multer.memoryStorage()
+  ? multer.memoryStorage() // ✅ Vercel serverless
   : multer.diskStorage({
       destination: path.join(__dirname, "uploads"),
       filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
@@ -28,29 +30,30 @@ const storage = process.env.VERCEL
 
 const upload = multer({ storage });
 
+// Serve uploads folder locally
 if (!process.env.VERCEL) {
   app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 }
 
-// Routes
+// ===== Routes =====
 app.get("/", (req, res) => res.send("Welcome to JustBuy API"));
 app.use("/api/upload-image", upload.single('image'), uploadImage);
 app.use("/api", routes);
 
-// Health check
+// Simple health check
 app.get('/ping', (req, res) => res.status(200).send('OK'));
 
-// Start server only locally
+// ===== Start Server =====
 const port = process.env.PORT || 6000;
 const start = async () => {
   try {
-    await connect(); // use cached connection
+    await connect();
     app.listen(port, () => console.log(`Server running on port ${port}`));
   } catch (error) {
     console.log("Error starting server:", error);
   }
 };
 
-if (!process.env.VERCEL) start(); // serverless functions on Vercel don't start a listener
-
-module.exports = app; // export for Vercel serverless
+// Export app for serverless deployment
+module.exports = app;
+if (!process.env.VERCEL) start(); // Only start server if running locally

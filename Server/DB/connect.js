@@ -1,32 +1,14 @@
-// DB/connect.js
 const mongoose = require('mongoose');
+require("dotenv").config();
 
-let cached = global.mongoose;
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
-
-const connect = async () => {
-  if (cached.conn) return cached.conn;
-
-  if (!cached.promise) {
+const connectDB = async () => {
+  try {
     console.log("Connecting to MongoDB...");
-    cached.promise = mongoose.connect(process.env.CONNECTION_STRING, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      connectTimeoutMS: 10000,
-    }).then((mongoose) => {
-      console.log("MongoDB connected");
-      return mongoose;
-    }).catch((err) => {
-      console.error("MongoDB connection failed:", err.message);
-      throw err;
-    });
+    await mongoose.connect(process.env.CONNECTION_STRING);
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error("MongoDB connection failed:", err.message);
   }
-
-  cached.conn = await cached.promise;
-  return cached.conn;
 };
 
-module.exports = connect;
+module.exports = connectDB;
