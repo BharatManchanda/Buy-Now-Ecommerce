@@ -92,9 +92,11 @@ const CategorySlider = ({ categories }) => {
               }}
               onClick={() => navigate(`/category/${category.id}`)}
             >
+              {console.log(category.imageUrl,"::category.imageUrl")}
+
               <Box
                 component="img"
-                src={category.imageUrl}
+                src={`${process.env.REACT_APP_URL}${category.imageUrl}`}
                 onError={(e) => (e.target.src = placeholder)}
                 alt={category.name}
                 sx={{

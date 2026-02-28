@@ -72,7 +72,7 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
           {!imageLoaded && <Skeleton variant="rectangular" width="100%" height="100%" />}
           <CardMedia
             component="img"
-            image={product.imageUrl}
+            image={`${process.env.REACT_APP_URL}${product.imageUrl}`}
             alt={product.name}
             onLoad={() => setImageLoaded(true)}
             onError={(e) => {

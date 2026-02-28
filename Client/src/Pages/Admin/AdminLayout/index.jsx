@@ -55,7 +55,7 @@ export default function AdminLayout() {
     >
       <Box sx={{ px: 2, pb: 1 }}>
         <Link to="/" style={{ textDecoration: 'none', display: 'flex', justifyContent: 'center' }}>
-          {icons.justBuy}
+          {icons.BuyNow}
         </Link>
       </Box>
 

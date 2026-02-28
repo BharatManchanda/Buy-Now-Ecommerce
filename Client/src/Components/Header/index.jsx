@@ -65,7 +65,7 @@ const Header = () => {
           <Box display="flex" alignItems="center">
               <>
                 <Link to="/" style={{ textDecoration: 'none' }}>
-                  {icons.justBuy}
+                  {icons.BuyNow}
                 </Link>
               </>
           </Box>

@@ -106,7 +106,7 @@ export default function Cart({ open, setOpen, setModalType }) {
         key: "rzp_test_spOg1mtGRCSHCE",
         amount: order.amount,
         currency: "INR",
-        name: "Just Buy",
+        name: "Buy Now",
         description: "Order Payment",
         order_id: order.id,
         handler: async function (response) {

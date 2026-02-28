@@ -1,39 +1,22 @@
-// index.js
 require("dotenv").config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const path = require("path");
-const multer = require("multer");
 const { uploadImage } = require('./controllers/upload/upload');
 
 // Database connection
 const connectDB = require('./DB/connect');
 const routes = require('./routes/index');
-
+const { upload } = require("./utils/storage");
 // Middlewares
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(cors({
   origin: process.env.CLIENT_URL, // frontend domain
   credentials: true
 }));
+
 app.use(express.json());
-
-// ===== Multer setup =====
-
-// Use disk storage locally, memory storage on Vercel
-const storage = process.env.VERCEL
-  ? multer.memoryStorage() // ✅ Vercel serverless
-  : multer.diskStorage({
-      destination: path.join(__dirname, "uploads"),
-      filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
-    });
-
-const upload = multer({ storage });
-
-// Serve uploads folder locally
-// if (!process.env.VERCEL) {
-//   app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-// }
 
 // ===== Routes =====
 app.get("/", (req, res) => res.send("Welcome to JustBuy API"));

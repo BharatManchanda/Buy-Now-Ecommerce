@@ -120,7 +120,7 @@ const Home = () => {
             color="primary"
             sx={{ letterSpacing: 0.5 }}
           >
-            Just Buy – Shop Smarter, Not Slower
+            Buy Now – Shop Smarter, Not Slower
           </Typography>
           {progress !== 100 ? (
             <>
