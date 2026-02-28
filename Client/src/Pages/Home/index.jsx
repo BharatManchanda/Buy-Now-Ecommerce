@@ -134,46 +134,6 @@ const Home = () => {
             <>
               <ImageSlider categories={productsss.categories} />
               <Divider sx={{ my: 4 }} />
-
-              {/* <Box
-                px={2}
-                py={2}
-                display="flex"
-                gap={2}
-                overflow="auto"
-                sx={{
-                  scrollbarWidth: "none",
-                  "&::-webkit-scrollbar": { display: "none" },
-                }}
-              >
-                {["Instant Delivery", "Best Offers", "New Arrivals", "Top Rated", "Seasonal Picks"].map(
-                  (label, i) => (
-                    <Box
-                      key={i}
-                      sx={{
-                        px: 2,
-                        py: 1,
-                        bgcolor: theme.palette.grey[100],
-                        border: "1px solid",
-                        borderColor: "divider",
-                        borderRadius: "999px",
-                        whiteSpace: "nowrap",
-                        fontWeight: 500,
-                        fontSize: "14px",
-                        cursor: "pointer",
-                        color: theme.palette.text.primary,
-                        transition: "all 0.2s ease",
-                        ":hover": {
-                          bgcolor: "primary.light",
-                          color: "primary.main",
-                        },
-                      }}
-                    >
-                      {label}
-                    </Box>
-                  )
-                )}
-              </Box> */}
               {!isMobile && 
                 <TrendingSections data={trendingData} />
               }

@@ -64,7 +64,6 @@ const CategorySlider = ({ categories }) => {
         </IconButton>
       )}
 
-      {/* Scrollable Categories */}
       <Box
         ref={scrollRef}
         onScroll={handleScroll}
@@ -93,11 +92,10 @@ const CategorySlider = ({ categories }) => {
               onClick={() => navigate(`/category/${category.id}`)}
             >
               {console.log(category.imageUrl,"::category.imageUrl")}
-
               <Box
                 component="img"
                 src={`${process.env.REACT_APP_URL}${category.imageUrl}`}
-                onError={(e) => (e.target.src = placeholder)}
+                // onError={(e) => (e.target.src = placeholder)}
                 alt={category.name}
                 sx={{
                   width: 90,
