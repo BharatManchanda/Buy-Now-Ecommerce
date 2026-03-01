@@ -10,6 +10,7 @@ import {
   useMediaQuery,
   useTheme,
   Badge,
+  Typography,
 } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Link } from 'react-router-dom';
@@ -64,8 +65,11 @@ const Header = () => {
         <Toolbar sx={{ justifyContent: 'space-between', py: 1, p:'0px !important' }}>
           <Box display="flex" alignItems="center">
               <>
-                <Link to="/" style={{ textDecoration: 'none' }}>
-                  {icons.BuyNow}
+                <Link to="/" style={{ textDecoration: 'none', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
+                  <img src="/Logo/logo.svg" alt="" srcset="" />
+                  <Typography sx={{ display: { xs: 'none', sm: 'block' } }}>
+                    {icons.BuyNow}
+                  </Typography>
                 </Link>
               </>
           </Box>

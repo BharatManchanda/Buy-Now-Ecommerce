@@ -40,7 +40,7 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
   };
 
   return (
-    <Grid item xs={4} sm={4} md={3} lg={2}>
+    <Grid item xs={6} sm={4} md={3} lg={2}>
       <Card
         variant="outlined"
         sx={{
@@ -59,7 +59,7 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
         {/* ---------- Product Image ---------- */}
         <Box
           sx={{
-            height: isMobile ? 100 : isTablet ? 100 : 100,
+            height: isMobile ? 96 : isTablet ? 100 : 100,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -84,7 +84,7 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
               objectFit: "cover",
               // maxHeight: "100%",
               transition: "transform 0.25s ease",
-              pt:3,
+              pt: 3,
               "&:hover": { transform: "scale(1.05)" },
             }}
           />
@@ -129,7 +129,7 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
               {product.prepTime || "9 min"}
             </Typography>
           </Box>
-          <Box sx={{display:'flex', justifyContent:'space-between'}}>
+          <Box>
           <Typography
             variant="body2"
             noWrap
@@ -207,11 +207,13 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
                 sx={{
                   display: "flex",
                   alignItems: "center",
+                  justifyContent: isMobile ? "space-between" : "flex-start",
                   border: "1px solid",
                   borderColor: theme.palette.success.main,
                   borderRadius: "14px",
                   overflow: "hidden",
                   height: 26,
+                  width: isMobile ? "100%" : "auto",
                 }}
               >
                 <Button
@@ -264,7 +266,7 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
                   px: 1.5,
                   py: 0.2,
                   height: 26,
-                  minWidth: 70,
+                  minWidth: isMobile ? "100%" : 70,
                   lineHeight: 1.2,
                 }}
               >

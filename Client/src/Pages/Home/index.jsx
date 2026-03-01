@@ -104,9 +104,15 @@ const Home = () => {
   const handleSubItem = (id) => dispatch(removeCartProduct(id));
 
   return (
-    <Box position="relative" minHeight={'100vh'}>
+    <Box
+      position="relative"
+      minHeight="100vh"
+      sx={{
+        overflowX: "hidden",
+      }}
+    >
       {isMobile && (
-        <Box maxWidth="600px" mx="auto" px={2} mb={4}>
+        <Box maxWidth="600px" mx="auto" mb={2}>
           <SearchBar />
         </Box>
       )}
@@ -114,11 +120,16 @@ const Home = () => {
       {!showSearchResult && (
         <>
           <Typography
-            variant="h4"
+            variant={isMobile ? "h5" : "h4"}
             fontWeight="bold"
-            my={2}
+            my={{ xs: 1.5, md: 2 }}
             color="primary"
-            sx={{ letterSpacing: 0.5 }}
+            sx={{
+              letterSpacing: 0.5,
+              lineHeight: 1.25,
+              textAlign: { xs: "center", md: "left" },
+              fontSize: { xs: "1.35rem", sm: "1.7rem", md: "2.1rem" },
+            }}
           >
             Buy Now – Shop Smarter, Not Slower
           </Typography>
@@ -126,7 +137,7 @@ const Home = () => {
             <>
               <CategorySkeleton count={isMobile ? 4 : 8} />
               <Box py={4}>
-                <Skeleton variant="text" width="20%" height={24} />
+                <Skeleton variant="text" width={isMobile ? "45%" : "20%"} height={24} />
               </Box>
               <ProductSkeleton count={isMobile ? 4 : 6} />
             </>
@@ -148,7 +159,7 @@ const Home = () => {
       )}
 
       {showSearchResult && (
-        <Box px={2} py={3}>
+        <Box px={{ xs: 0.5, md: 2 }} py={{ xs: 2, md: 3 }}>
           {searchQuery.trim() && (
             <Typography variant="h6" fontWeight={600} gutterBottom>
               Showing results for "{searchQuery}"
@@ -157,7 +168,7 @@ const Home = () => {
           {searchLoading ? (
             <ProductSkeleton count={4} />
           ) : searchResults.length > 0 ? (
-            <Grid container spacing={0.1}>
+            <Grid container spacing={{ xs: 0.8, sm: 1 }}>
               {searchResults.map((product) => (
                 <Product
                   key={product._id}
