@@ -13,6 +13,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { showWarning } from "../../Assets/Constants/showNotifier";
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 
@@ -20,13 +21,15 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
   const [productCount, setProductCount] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
   const cartItems = useSelector((state) => state.cart);
+  const navigate = useNavigate();
+  const productId = product?._id || product?.id;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
   useEffect(() => {
-    const added = cartItems.items.find((item) => item._id === product._id);
+    const added = cartItems.items.find((item) => item._id === productId);
     setProductCount(added ? added.count : 0);
-  }, [cartItems, product._id]);
+  }, [cartItems, productId]);
 
   const getCurrentPrice = (discount, total) =>
     (total - (discount * total) / 100).toFixed(2);
@@ -37,6 +40,11 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
       return;
     }
     handleAddItem(product);
+  };
+
+  const handleOpenProduct = () => {
+    if (!productId) return;
+    navigate(`/product/${productId}`);
   };
 
   return (
@@ -58,6 +66,7 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
       >
         {/* ---------- Product Image ---------- */}
         <Box
+          onClick={handleOpenProduct}
           sx={{
             height: isMobile ? 96 : isTablet ? 100 : 100,
             display: "flex",
@@ -67,6 +76,7 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
 
             bgcolor: "#f9f9f9",
             overflow: "hidden",
+            cursor: "pointer",
           }}
         >
           {!imageLoaded && <Skeleton variant="rectangular" width="100%" height="100%" />}
@@ -133,11 +143,13 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
           <Typography
             variant="body2"
             noWrap
+            onClick={handleOpenProduct}
             sx={{
               fontWeight: 600,
               lineHeight: 1.2,
               fontSize: isMobile ? "13px" : "13px",
               color: "text.primary",
+              cursor: "pointer",
             }}
           >
             {product.name}
@@ -217,7 +229,7 @@ const Product = ({ product, handleAddItem, handleSubItem }) => {
                 }}
               >
                 <Button
-                  onClick={() => handleSubItem(product._id)}
+                  onClick={() => handleSubItem(productId)}
                   sx={{
                     minWidth: 24,
                     color: "success.main",

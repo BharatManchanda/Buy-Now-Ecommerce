@@ -17,6 +17,7 @@ import { getMe } from "../store/redux/thunks";
 
 // Lazy-loaded Pages
 const Home = lazy(() => import("../Pages/Home"));
+const ProductDetail = lazy(() => import("../Pages/ProductDetail"));
 const About = lazy(() => import("../Pages/About"));
 const PrivacyPolicy = lazy(() => import("../Pages/Public/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("../Pages/Public/TermsOfService"));
@@ -55,6 +56,7 @@ const AppRoutes = () => {
 
         <Route element={<GeneralLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path="/category/:categoryId" element={<CategoryProductsPage />} />
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/about" element={<About />} />
