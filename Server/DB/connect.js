@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 require("dotenv").config();
 
+mongoose.set("strictQuery", true);
+mongoose.set("bufferCommands", false);
+
 const connectDB = async () => {
   try {
     console.log("Connecting to MongoDB...");
